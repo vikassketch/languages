@@ -1,0 +1,102 @@
+.battery-container {
+  display: flex;
+  align-items: center;
+  column-gap: 1px;
+
+  .triangle {
+    width: 0;
+    height: 0;
+    border-left: 3px solid #666666;
+    border-right: 3px solid transparent;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+  }
+}
+.loader {
+  border: 3.5px solid #f3f3f3;
+  border-top: 3.5px solid #666666;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 0.8s linear infinite;
+}
+.options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 15px;
+  .mutiple-options {
+    width: 329px;
+    display: flex;
+    padding: 10px 30px;
+    column-gap: 31px;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border-radius: 32px;
+    height: 64px;
+    background: linear-gradient(
+        155deg,
+        rgba(30, 32, 33, 0.5) 0%,
+        rgba(32, 33, 36, 0.5) 100%
+      ),
+      radial-gradient(
+        76.03% 76.03% at 24% 18%,
+        rgba(55, 56, 61, 0.5) 0%,
+        rgba(31, 32, 35, 0.5) 100%
+      );
+    border: 1.5px solid rgba(235, 235, 245, 0.1);
+    .circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: radial-gradient(
+        76.03% 76.03% at 24% 18%,
+        rgba(84, 86, 89, 0.5) 0%,
+        rgba(35, 38, 41, 0.5) 100%
+      );
+      box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+      // border-image: linear-gradient(to right bottom, #30E5D3, #6B48FF) 1;
+    }
+    .circle:hover {
+      cursor: pointer;
+      transition: all 0.5s ease;
+      border: 1.5px solid #30e5d3;
+    }
+    .selected {
+      border: 1.5px solid #30e5d3;
+    }
+  }
+  .textOptions {
+    width: 300px;
+    display: flex;
+    align-items: flex-end;
+    column-gap: 12px;
+    justify-content: space-around;
+    span{
+      color: #ffffff;
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .options{
+      row-gap: 8px;
+      .mutiple-options{
+        padding: 10px 16px;
+        width: 269px;
+      }
+      .textOptions{
+        width: 250px;
+      }
+  }
+}

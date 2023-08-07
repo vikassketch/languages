@@ -1,0 +1,83 @@
+.languages-options {
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 20px;
+  height: 100%;
+  font-family: "Manrope", sans-serif;
+  .lang-caption {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    align-items: center;
+    h1 {
+      margin: unset;
+      font-size: 32px;
+    }
+    h1:first-child {
+      font-weight: 700;
+    }
+    h1:last-child {
+      font-weight: 800;
+    }
+  }
+  .languages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 15px;
+    p {
+      margin: unset;
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .slick-slider {
+      width: 450px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      .slick-track {
+        display: flex;
+        column-gap: 10px;
+        align-items: center;
+      }
+      img:hover {
+        border: 1.5px solid rgb(112, 112, 238);
+        padding: 2px;
+        transition: "border-color 0.3s ease";
+      }
+      .slick-slide {
+        width: 53px !important;
+        img {
+          cursor: pointer;
+          border-radius: 50%;
+          object-fit: cover;
+          width: 53px !important;
+          height: 53px;
+        }
+      }
+    }
+  }
+}
+.settings-opened {
+  height: 20vh !important;
+  .lang-caption {
+    color: #666666 !important;
+  }
+}
+@media screen and (max-width: 480px) {
+  .languages-options .languages {
+    .slick-slider {
+      width: 280px;
+    }
+    p {
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

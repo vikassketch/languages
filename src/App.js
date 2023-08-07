@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { useContext } from "react";
+import NavBar from "./layout/components/NavBar";
+import Footer from "./layout/components/Footer";
+import Languages from "./pages/dashboard/language";
+import { LanguageContext } from "./context/LanguageContext";
+import "./App.css";
+import "./utils/Fonts.scss";
 
 function App() {
+  const { settingsData } = useContext(LanguageContext);
+  console.log(settingsData.theme)
+  const themeStyle={
+    backgroundColor : `${settingsData.theme}`
+  }
+  console.log(themeStyle)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="main-container" style={themeStyle}>
+      <NavBar />
+      <Languages />
+      <Footer />
     </div>
   );
 }

@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 14px 20px;
+  color: #ffffff;
+  font-family: "Outfit", sans-serif;
+  .current-time {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .icons {
+    display: flex;
+    column-gap: 7px;
+    align-items: flex-end;
+  }
+}

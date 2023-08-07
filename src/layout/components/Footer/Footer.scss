@@ -1,0 +1,28 @@
+.footer {
+  color: #ffffff;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  margin: 20px 0px;
+  cursor: pointer;
+  font-family: "Outfit", sans-serif;
+  .text-bar {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+    justify-content: center;
+    align-items: center;
+    .settings-text {
+      color: #ffffff;
+      margin: unset;
+      font-size: 22px;
+      font-weight: 600;
+    }
+    .bar {
+      width: 65px;
+      height: 6px;
+      background-color: #ffffff;
+      border-radius: 4px;
+    }
+  }
+}
