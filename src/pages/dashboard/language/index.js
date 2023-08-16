@@ -1,50 +1,86 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useCallback } from "react";
 import { LanguageContext } from "../../../context/LanguageContext";
 import "./Languages.scss";
 import Loader from "../../../assests/Loader";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import debounce from "lodash.debounce";
 
 const Languages = () => {
   const { languages, isVisible, settingsData, updateSettingsData } = useContext(
     LanguageContext
   );
   const [selectedLanguage, setSelectedLanguage] = useState("");
+  const [countriesToDisplay, setcountriesToDisplay] = useState([]);
   const usaIndex = languages.findIndex(
     (language) => language.name === "United States"
   );
-  console.log("usaIndex", usaIndex);
-  console.log("Languages:", languages);
+  const displayCountries = useCallback(() => {
+    setcountriesToDisplay(
+      window.innerWidth > 640
+        ? languages.slice(
+            Math.max(0, usaIndex - 3),
+            Math.min(languages.length, usaIndex + 4)
+          )
+        : languages.slice(
+            Math.max(0, usaIndex - 2),
+            Math.min(languages.length, usaIndex + 3)
+          )
+    );
+  }, [languages, usaIndex]);
   useEffect(() => {
     if (usaIndex !== -1) {
       setSelectedLanguage(languages[usaIndex].name);
     }
-  }, [languages, usaIndex]);
+    displayCountries();
+  }, [usaIndex, displayCountries, languages]);
   const textStyle = {
     color: `${settingsData.textColor}`,
     fontSize: `${settingsData.textSize}`,
     display: "flex",
     columnGap: "8px",
   };
-  const settings = {
-    infinite: true,
-    speed: 200,
-    slidesToShow: 7,
-    slidesToScroll: 1,
-    centerMode: true,
-    focusOnSelect: true,
-    initialSlide: usaIndex !== -1 ? usaIndex + 23 : 0,
-    // lazyLoad:'ondemand'
-  };
-
   const handleImageClick = (language) => {
+    setSelectedLanguage(language.name);
     const langData = {
       languages: language.languages.split(",").map((lang) => lang.trim()),
     };
     updateSettingsData(langData);
   };
+  const getCountrySize = (index, middleIndex) => {
+    const distanceFromMiddle = Math.abs(index - middleIndex);
+    switch (distanceFromMiddle) {
+      case 0:
+        return "bigImg";
+      case 1:
+        return "smallImg";
+      case 2:
+        return "smallerImg";
+      default:
+        return "smallestImg";
+    }
+  };
+  const handleScroll = debounce((event) => {
+    console.log("testing scroll", event.deltaX, countriesToDisplay[0].name);
+    const startIndex = languages.findIndex(
+      (language) => language.name === countriesToDisplay[0].name
+    );
+    const endIndex = languages.findIndex(
+      (language) =>
+        language.name ===
+        countriesToDisplay[countriesToDisplay.length - 1].name
+    );
+    console.log(startIndex,endIndex)
+    if (event.deltaX > 0) {
+      console.log(languages.slice(startIndex - 1, endIndex));
+      const newCountries = languages.slice(startIndex+1, endIndex+2);
+      setcountriesToDisplay(newCountries);
+    }
+    if(event.deltaX < 0){
+      console.log(languages.slice(startIndex+1, endIndex+2));
+      const newCountries =languages.slice(startIndex - 1, endIndex);
+      setcountriesToDisplay(newCountries);
+    }
+  },500);
+  const middleIndex = Math.floor(countriesToDisplay.length / 2);
   return (
     <div className={`languages-options ${isVisible && "settings-opened"}`}>
       <div className="lang-caption">
@@ -59,22 +95,23 @@ const Languages = () => {
           <Loader />
         ) : (
           <div className="languages">
-            <Slider {...settings}>
-              {languages.map((language, index) => (
+            <div className="totalCountries" onWheel={handleScroll}>
+              {countriesToDisplay.map((language, index) => (
                 <div
                   key={language.name}
                   onClick={() => handleImageClick(language)}
+                  className="eachCountry"
                 >
                   <img
                     src={language.flagUrl}
                     alt={language.name}
-                    className={`${
+                    className={`flagImg ${
                       language.name === selectedLanguage && "selected-image"
-                    }`}
+                    } ${getCountrySize(index, middleIndex)}`}
                   />
                 </div>
               ))}
-            </Slider>
+            </div>
             {selectedLanguage && (
               <p className="show" style={textStyle}>
                 {settingsData.languages.map((language, index) => (

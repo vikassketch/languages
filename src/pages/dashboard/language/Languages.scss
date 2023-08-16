@@ -34,29 +34,37 @@
       font-size: 20px;
       font-weight: 800;
     }
-    .slick-slider {
-      width: 450px;
-      height: 70px;
+    .totalCountries {
       display: flex;
+      column-gap: 16px;
       align-items: center;
-      .slick-track {
-        display: flex;
-        column-gap: 10px;
-        align-items: center;
-      }
-      img:hover {
-        border: 1.5px solid rgb(112, 112, 238);
-        padding: 2px;
-        transition: "border-color 0.3s ease";
-      }
-      .slick-slide {
-        width: 53px !important;
-        img {
-          cursor: pointer;
+      .eachCountry {
+        cursor: pointer;
+        .flagImg {
+          width: 76px;
+          height: 76px;
           border-radius: 50%;
           object-fit: cover;
-          width: 53px !important;
-          height: 53px;
+        }
+        .selected-image {
+          border: 2px solid #69b7ff;
+          padding: 4px;
+        }
+        .bigImg {
+          width: 60px;
+          height: 60px;
+        }
+        .smallImg {
+          width: 32px;
+          height: 32px;
+        }
+        .smallerImg {
+          width: 24px;
+          height: 24px;
+        }
+        .smallestImg {
+          width: 16px;
+          height: 16px;
         }
       }
     }
